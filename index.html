@@ -107,7 +107,11 @@
     for (let col = 0; col < colgridSize; col++) {
       const td = document.createElement("td");
       td.id = `total-${col}`;
-      td.textContent = "0";
+      if (col == 0) {
+			td.textContent = "Count";
+		} else {
+		td.textContent = "0";
+	  }
       totalRow.appendChild(td);
     }
     table.appendChild(totalRow);
@@ -117,10 +121,30 @@
     for (let col = 0; col < colgridSize; col++) {
       const td = document.createElement("td");
       td.id = `bal-${col}`;
-      td.textContent = "80";
+      if (col == 0) {
+			td.textContent = "Remaining Count";
+		} else {
+		td.textContent = "80";
+	  }
       balance.appendChild(td);
     }
     table.appendChild(balance);
+    
+    const win = document.createElement("tr");
+    win.className = "total-row";
+    for (let col = 0; col < colgridSize; col++) {
+      const td = document.createElement("td");
+        if (col == 0) {
+			td.textContent = `Winning Amount`;
+		} else {
+		  const input = document.createElement("input");
+			input.type = "text";
+			input.id = `win-${col}`;
+		  td.appendChild(input);
+		}
+	  win.appendChild(td);
+    }
+    table.appendChild(win);
 
     // Function to calculate column totals
     function calculateTotals() {
