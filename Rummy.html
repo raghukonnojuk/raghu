@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rummy</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    table {
+      border-collapse: collapse;
+    }
+    td {
+      border: 1px solid #ccc;
+      padding: 5px;
+      text-align: center;
+    }
+    input[type="number"] {
+      width: 60px;
+      padding: 5px;
+      text-align: center;
+    }
+    .total-row {
+      font-weight: bold;
+      background-color: #f9f9f9;
+    }
+    button {
+      margin-top: 20px;
+      padding: 8px 15px;
+      font-size: 1rem;
+    }
+	.textbox-row {
+      display: flex;
+      gap: 10px;
+      margin: 40px;
+    }
+    input[type="text"] {
+      font-weight: bold;
+      width: 60px;
+      padding: 5px;
+	  text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <table id="gridTable"></table>
+
+  <button onclick="calculateTotals()"><b>Rummy Count</b></button>
+
+  <script>
+    const colgridSize = 8;
+    const rowgridSize = 9;
+    const table = document.getElementById("gridTable");
+
+
+    const players1 = document.createElement("tr");
+    players1.className = "total-row";
+    for (let col = 0; col < colgridSize; col++) {
+      const td = document.createElement("td");
+        if (col == 0) {
+			td.textContent = ` `;
+		} else {
+        td.textContent = `Player-${col}`;
+		}
+		players1.appendChild(td);
+    }
+    table.appendChild(players1);
+
+    const players = document.createElement("tr");
+    players.className = "total-row";
+    for (let col = 0; col < colgridSize; col++) {
+      const td = document.createElement("td");
+        if (col == 0) {
+			td.textContent = `Player Name`;
+		} else {
+		  const input = document.createElement("input");
+			input.type = "text";
+			input.id = `cell-${col}`;
+		  td.appendChild(input);
+		}
+	  players.appendChild(td);
+    }
+    table.appendChild(players);
+
+    // Create 7 rows of 7 inputs
+    for (let row = 0; row < rowgridSize; row++) {
+      const tr = document.createElement("tr");
+      for (let col = 0; col < colgridSize; col++) {
+        const td = document.createElement("td");
+        if (col == 0) {
+			td.textContent = `Round-${row+1}`;
+		} else {
+		const input = document.createElement("input");
+			input.type = "number";
+			input.id = `cell-${row}-${col}`;
+		td.appendChild(input);
+        }
+        tr.appendChild(td);
+      }
+      table.appendChild(tr);
+    }
+
+    // Add totals row
+    const totalRow = document.createElement("tr");
+    totalRow.className = "total-row";
+    for (let col = 0; col < colgridSize; col++) {
+      const td = document.createElement("td");
+      td.id = `total-${col}`;
+      td.textContent = "0";
+      totalRow.appendChild(td);
+    }
+    table.appendChild(totalRow);
+
+    const balance = document.createElement("tr");
+    balance.className = "total-row";
+    for (let col = 0; col < colgridSize; col++) {
+      const td = document.createElement("td");
+      td.id = `bal-${col}`;
+      td.textContent = "80";
+      balance.appendChild(td);
+    }
+    table.appendChild(balance);
+
+    // Function to calculate column totals
+    function calculateTotals() {
+      for (let col = 1; col < colgridSize; col++) {
+        let sum = 0;
+        for (let row = 0; row < rowgridSize; row++) {
+          const val = parseFloat(document.getElementById(`cell-${row}-${col}`).value);
+          if (!isNaN(val)) sum += val;
+        }
+        document.getElementById(`total-${col}`).textContent = sum;
+        document.getElementById(`bal-${col}`).textContent = 80-sum;
+      }
+    }
+  </script>
+
+</body>
+</html>
