@@ -124,7 +124,7 @@
       if (col == 0) {
 			td.textContent = "Remaining Count";
 		} else {
-		td.textContent = "80";
+		td.textContent = "100";
 	  }
       balance.appendChild(td);
     }
@@ -155,7 +155,7 @@
           if (!isNaN(val)) sum += val;
         }
         document.getElementById(`total-${col}`).textContent = sum;
-        document.getElementById(`bal-${col}`).textContent = 80-sum;
+        document.getElementById(`bal-${col}`).textContent = 100-sum;
       }
     }
   </script>
