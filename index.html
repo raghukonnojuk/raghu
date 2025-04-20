@@ -154,8 +154,15 @@
           const val = parseFloat(document.getElementById(`cell-${row}-${col}`).value);
           if (!isNaN(val)) sum += val;
         }
-        document.getElementById(`total-${col}`).textContent = sum;
-        document.getElementById(`bal-${col}`).textContent = 100-sum;
+		if (sum > 100) {
+			document.getElementById(`total-${col}`).textContent = sum;
+			document.getElementById(`total-${col}`).style.color = "red";
+			document.getElementById(`bal-${col}`).textContent = `X`;
+		} else {
+			document.getElementById(`total-${col}`).textContent = sum;
+			document.getElementById(`total-${col}`).style.color = "green";
+			document.getElementById(`bal-${col}`).textContent = 100-sum;
+		}
       }
     }
   </script>
